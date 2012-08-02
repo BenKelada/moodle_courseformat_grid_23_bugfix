@@ -90,7 +90,7 @@ class format_grid_renderer extends format_section_renderer_base {
         }
         echo html_writer::start_tag('div', array('id' => 'iconContainer'));
         echo html_writer::start_tag('ul', array('class' => 'icons'));
-        /// Print all of the icons. 
+        /// Print all of the icons.
         $this->make_block_icon_topics($context, $sections, $course, $editing, $has_cap_update, $has_cap_vishidsect, $url_pic_edit);
         echo html_writer::end_tag('ul');
         echo html_writer::end_tag('div');
@@ -401,7 +401,7 @@ class format_grid_renderer extends format_section_renderer_base {
             // Note, 'left side' is BEFORE content.
             echo html_writer::tag('div', html_writer::tag('span', $section), array('class' => 'left side'));
             // Note, 'right side' is BEFORE content.
-            $rightcontent = $this->section_right_content($thissection, $course);
+            $rightcontent = $this->section_right_content($thissection, $course,$onsectionpage);
             echo html_writer::tag('div', $rightcontent, array('class' => 'right side'));
 
             echo html_writer::start_tag('div', array('class' => 'content'));
@@ -491,7 +491,7 @@ class format_grid_renderer extends format_section_renderer_base {
     }
 
 //Attempts to return a 40 character title for the section icon.
-//If section names are set, they are used. Otherwise it scans 
+//If section names are set, they are used. Otherwise it scans
 //the summary for what looks like the first line.
     private function get_title($section) {
         $title = is_object($section) && isset($section->name) &&
@@ -506,7 +506,7 @@ class format_grid_renderer extends format_section_renderer_base {
             $title = trim(format_text($section->summary));
 
             // Finds first header content. If it doesn't found,
-            // trying to find first paragraph. 
+            // trying to find first paragraph.
             foreach (array('h[1-6]', 'p') as $tag) {
                 if (preg_match('#<(' . $tag . ')\b[^>]*>(?P<text>.*?)</\1>#si', $title, $m)) {
                     if (!_is_empty_text($m['text'])) {
